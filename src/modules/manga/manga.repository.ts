@@ -13,7 +13,7 @@ export class MangaRepository implements AbstractMangaRepository {
     private readonly model: Model<MangaDocument>,
   ) {}
 
-  async findTotalManga(): Promise<number> {
+  async findTotalMangas(): Promise<number> {
     const totalDocuments = await this.model
       .countDocuments({
         status: { $ne: COMMONS.HIDDEN_STATUS },
@@ -23,7 +23,7 @@ export class MangaRepository implements AbstractMangaRepository {
     return totalDocuments;
   }
 
-  async findManga(page: number, limit: number): Promise<IManga[]> {
+  async findMangas(page: number, limit: number): Promise<IManga[]> {
     const [newPage, newLimit] = getPageLimit(page, limit);
     const skip = (newPage - 1) * limit;
 

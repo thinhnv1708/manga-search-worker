@@ -9,7 +9,7 @@ import { MangaService } from './manga.service';
 const context = 'MangaBullController';
 
 @Processor(COMMONS.BULL_QUEUE_NAMES.SYNC_MANGA_TO_SEARCH_ENGINE)
-export class MangaBullConsumer {
+export class MangaBullConsumerAdp {
   constructor(
     private readonly loggerGwAdp: AbstractLoggerGwAdp,
     private readonly mangaService: MangaService,
@@ -28,7 +28,7 @@ export class MangaBullConsumer {
     const { page, limit } = job.data;
 
     const [error] = await excutePromise(
-      this.mangaService.syncMangaToSearchEngine(page, limit),
+      this.mangaService.syncAllMangasToSearchEngine(page, limit),
     );
 
     if (error) {

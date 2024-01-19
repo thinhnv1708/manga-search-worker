@@ -9,7 +9,7 @@ import { MangaService } from './manga.service';
 const context = 'MangaRestController';
 
 @Controller('/api/v1')
-export class MangaRestController {
+export class MangaRestControllerAdp {
   constructor(
     private readonly loggerGwAdp: AbstractLoggerGwAdp,
     private readonly configService: ConfigService,
@@ -27,7 +27,7 @@ export class MangaRestController {
     );
 
     const [error] = await excutePromise(
-      this.mangaService.handleAddSyncMangaJob(MANGA_SYNC_CHUNK_SIZE),
+      this.mangaService.handleAddSyncMangaJobs(MANGA_SYNC_CHUNK_SIZE),
     );
 
     if (error) {

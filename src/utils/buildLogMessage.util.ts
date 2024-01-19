@@ -1,12 +1,13 @@
 export const buildLogMessage = (
   message: string,
-  reqBody?: string,
-  response?: string,
-  stack?: string,
+  params: string = '',
+  result: string = '',
+  stack: string = '',
 ): string => {
   const args = [
-    { label: 'RequestBody', value: reqBody },
-    { label: 'Response', value: response },
+    { label: 'Message', value: message },
+    { label: 'Params', value: params },
+    { label: 'Result', value: result },
     { label: 'Stack', value: stack },
   ];
 
@@ -16,5 +17,5 @@ export const buildLogMessage = (
     } else {
       return previousValue;
     }
-  }, `[Message: ${message}]`);
+  }, '');
 };

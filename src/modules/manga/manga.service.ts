@@ -3,6 +3,7 @@ import {
   AbstractMangaJobManagerGwAdp,
   AbstractMangaRepository,
   AbstractMangaSearchRepository,
+  IManga,
   IMangaSearchData,
 } from './abstracts';
 
@@ -14,8 +15,8 @@ export class MangaService {
     private readonly mangaJobManagerGwAdp: AbstractMangaJobManagerGwAdp,
   ) {}
 
-  async handleAddSyncMangaJob(limit: number): Promise<void> {
-    const totalManga = await this.mangaRepository.findTotalManga();
+  async handleAddSyncMangaJobs(limit: number): Promise<void> {
+    const totalManga = await this.mangaRepository.findTotalMangas();
 
     const totalPage = Math.ceil(totalManga / limit);
 
@@ -24,9 +25,16 @@ export class MangaService {
     }
   }
 
-  async syncMangaToSearchEngine(page: number, limit: number): Promise<void> {
-    const mangas = await this.mangaRepository.findManga(page, limit);
+  async syncAllMangasToSearchEngine(
+    page: number,
+    limit: number,
+  ): Promise<void> {
+    const mangas = await this.mangaRepository.findMangas(page, limit);
 
+    await this.syncMangasToSearchEngine(mangas);
+  }
+
+  async syncMangasToSearchEngine(mangas: IManga[]): Promise<void> {
     const mangaSearchDatas: IMangaSearchData[] = mangas.map((manga) => {
       const {
         id,
