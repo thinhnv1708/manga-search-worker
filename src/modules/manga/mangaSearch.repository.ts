@@ -101,6 +101,7 @@ export class MangaSearchRepository implements AbstractMangaSearchRepository {
         totalChapter,
         genreTitles,
         status,
+        views,
       } = manga;
 
       return [
@@ -118,6 +119,7 @@ export class MangaSearchRepository implements AbstractMangaSearchRepository {
           totalChapter,
           genreTitles,
           status,
+          views,
         },
       ];
     });

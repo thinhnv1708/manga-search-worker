@@ -6,4 +6,5 @@ export interface IMangaSearchData {
   totalChapter: number;
   genreTitles: string[];
   status: string;
+  views: number;
 }

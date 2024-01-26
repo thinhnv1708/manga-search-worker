@@ -40,6 +40,7 @@ export class MangaRepository implements AbstractMangaRepository {
         genres: 1,
         totalChapter: 1,
         status: 1,
+        views: 1,
       })
       .lean();
 

@@ -44,6 +44,7 @@ export class MangaService {
         genres = [],
         totalChapter,
         status,
+        views,
       } = manga;
 
       const genreTitles: string[] = genres.map((genre) => genre.title);
@@ -56,6 +57,7 @@ export class MangaService {
         totalChapter,
         genreTitles,
         status,
+        views,
       };
     });
 

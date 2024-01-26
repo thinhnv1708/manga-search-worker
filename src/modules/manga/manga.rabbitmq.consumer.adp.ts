@@ -39,9 +39,16 @@ export class MangaRabbitmqConsumerAdp {
       return;
     }
 
-    const { id, title, subTitle, thumbnail, genres, totalChapter, status } = <
-      ISyncMangaInput
-    >value;
+    const {
+      id,
+      title,
+      subTitle,
+      thumbnail,
+      genres,
+      totalChapter,
+      status,
+      views,
+    } = <ISyncMangaInput>value;
 
     const manga: IManga = {
       id,
@@ -51,6 +58,7 @@ export class MangaRabbitmqConsumerAdp {
       genres,
       totalChapter,
       status,
+      views,
     };
 
     const [handleSyncError] = await excutePromise(

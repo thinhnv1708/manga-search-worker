@@ -32,6 +32,9 @@ export class Manga extends Document implements IManga {
 
   @Prop({ type: String })
   status: string;
+
+  @Prop({ type: Number })
+  views: number;
 }
 
 const _Schema = SchemaFactory.createForClass(Manga);
