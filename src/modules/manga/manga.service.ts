@@ -15,8 +15,8 @@ export class MangaService {
     private readonly mangaJobManagerGwAdp: AbstractMangaJobManagerGwAdp,
   ) {}
 
-  async handleAddSyncMangaJob(limit: number): Promise<void> {
-    const totalManga = await this.mangaRepository.findTotalManga();
+  async handleAddSyncMangaJobs(limit: number): Promise<void> {
+    const totalManga = await this.mangaRepository.findTotalMangas();
 
     const totalPage = Math.ceil(totalManga / limit);
 
@@ -26,7 +26,7 @@ export class MangaService {
   }
 
   async syncMangasToSearchEngine(page: number, limit: number): Promise<void> {
-    const mangas = await this.mangaRepository.findManga(page, limit);
+    const mangas = await this.mangaRepository.findMangas(page, limit);
 
     const mangaSearchDatas: IMangaSearchData[] = mangas.map((manga) => {
       return this.mapMangaToSearchData(manga);
@@ -50,6 +50,7 @@ export class MangaService {
       genres = [],
       totalChapter,
       status,
+      views,
     } = manga;
 
     const genreTitles: string[] = genres.map((genre) => genre.title);
@@ -62,6 +63,7 @@ export class MangaService {
       totalChapter,
       genreTitles,
       status,
+      views,
     };
   }
 }

@@ -11,4 +11,5 @@ export interface IManga {
   genres: IMangaGenre[];
   totalChapter: number;
   status: string;
+  views: number;
 }

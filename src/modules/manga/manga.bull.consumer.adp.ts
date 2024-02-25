@@ -54,8 +54,16 @@ export class MangaBullConsumer {
       buildLogContext(context, 'handleAddSyncMangaJob'),
     );
 
-    const { id, title, subTitle, thumbnail, genres, totalChapter, status } =
-      job.data;
+    const {
+      id,
+      title,
+      subTitle,
+      thumbnail,
+      genres,
+      totalChapter,
+      status,
+      views,
+    } = job.data;
 
     const [error] = await excutePromise(
       this.mangaService.syncMangaToSearchEngine({
@@ -66,6 +74,7 @@ export class MangaBullConsumer {
         genres,
         totalChapter,
         status,
+        views,
       }),
     );
 
