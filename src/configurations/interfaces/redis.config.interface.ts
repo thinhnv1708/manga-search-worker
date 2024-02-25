@@ -5,9 +5,8 @@ export interface IRedisConfig {
     host: string;
     port: number;
   }[];
-  REDIS_CLUSTER_NAME: string;
-  REDIS_CLUSTER_PASSWORD: string;
-  REDIS_PASSWORD: string;
+  NAME: string;
+  PASSWORD: string;
   DB: number;
-  BASE_PREFIX: string;
+  KEY_PREFIX: string;
 }

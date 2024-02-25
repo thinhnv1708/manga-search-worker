@@ -3,6 +3,7 @@ import {
   AbstractMangaJobManagerGwAdp,
   AbstractMangaRepository,
   AbstractMangaSearchRepository,
+  IManga,
   IMangaSearchData,
 } from './abstracts';
 
@@ -20,37 +21,47 @@ export class MangaService {
     const totalPage = Math.ceil(totalManga / limit);
 
     for (let page = 1; page <= totalPage; page++) {
-      await this.mangaJobManagerGwAdp.addSyncMangaJob(page, limit);
+      await this.mangaJobManagerGwAdp.addSyncMangasJob(page, limit);
     }
   }
 
-  async syncMangaToSearchEngine(page: number, limit: number): Promise<void> {
+  async syncMangasToSearchEngine(page: number, limit: number): Promise<void> {
     const mangas = await this.mangaRepository.findManga(page, limit);
 
     const mangaSearchDatas: IMangaSearchData[] = mangas.map((manga) => {
-      const {
-        id,
-        title,
-        subTitle,
-        thumbnail,
-        genres = [],
-        totalChapter,
-        status,
-      } = manga;
-
-      const genreTitles: string[] = genres.map((genre) => genre.title);
-
-      return {
-        id,
-        title,
-        subTitle,
-        thumbnail,
-        totalChapter,
-        genreTitles,
-        status,
-      };
+      return this.mapMangaToSearchData(manga);
     });
 
     await this.mangaSearchRepository.saveMangas(mangaSearchDatas);
+  }
+
+  async syncMangaToSearchEngine(manga: IManga): Promise<void> {
+    const magnaSearchData = this.mapMangaToSearchData(manga);
+
+    await this.mangaSearchRepository.saveMangas([magnaSearchData]);
+  }
+
+  mapMangaToSearchData(manga: IManga): IMangaSearchData {
+    const {
+      id,
+      title,
+      subTitle,
+      thumbnail,
+      genres = [],
+      totalChapter,
+      status,
+    } = manga;
+
+    const genreTitles: string[] = genres.map((genre) => genre.title);
+
+    return {
+      id,
+      title,
+      subTitle,
+      thumbnail,
+      totalChapter,
+      genreTitles,
+      status,
+    };
   }
 }

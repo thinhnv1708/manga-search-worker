@@ -1,6 +1,6 @@
 import { IRedisConfig } from '@configurations/interfaces';
 import { COMMONS } from '@constants/index';
-import { makeBullConfig } from '@helpers/makeBullConfig.helper';
+import { makeRedisConfig } from '@helpers/makeRedisConfig.helper';
 import { BullModule as BullLibModule } from '@nestjs/bull';
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -13,7 +13,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: async (configService: ConfigService) => {
         const redisConfig = configService.get<IRedisConfig>('REDIS_CONFIG');
 
-        return makeBullConfig(redisConfig);
+        return {
+          redis: makeRedisConfig({
+            ...redisConfig,
+            KEY_PREFIX: COMMONS.BULL_KEY_PREFIX,
+          }),
+        };
       },
       inject: [ConfigService],
     }),

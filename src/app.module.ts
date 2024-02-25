@@ -24,7 +24,6 @@ import { ElasticsearchModule } from '@modules/elasticsearch';
         appConfig,
         loggerConfig,
         mongodbConfig,
-        rabbitmqConfig,
         redisConfig,
         elasticsearchConfig,
       ],
